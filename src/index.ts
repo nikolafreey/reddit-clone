@@ -24,14 +24,14 @@ const main = async () => {
     const RedisStore = connectRedis(session);
     const redisClient = redis.createClient();
 
-//     app.use(
-//     cors({
-//       // origin: process.env.CLIENT_URL,
-//       // credentials: true,
-//       origin: "",
-//       credentials: true,
-//     })
-//   );
+    app.use(
+    cors({
+      // origin: process.env.CLIENT_URL,
+      // credentials: true,
+      origin: "http://localhost:3000",
+      credentials: true,
+    })
+  );
 
     app.use(
         session({
@@ -59,7 +59,7 @@ const main = async () => {
 
     await apolloServer.start();
 
-    apolloServer.applyMiddleware({app});
+    apolloServer.applyMiddleware({app, cors: false});
 
     app.listen(4040, () => {
         console.log("App is listening on port: 4040")
